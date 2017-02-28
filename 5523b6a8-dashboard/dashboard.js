@@ -1,12 +1,12 @@
 // 1. Count the number of records in the "Current Quarter Details" table.
-var numberOfRecords = document.querySelectorAll('tr');
-numberOfRecords= Array.from(numberOfRecords);
+var numberOfRecords = document.querySelectorAll('tbody tr');
+// numberOfRecords= Array.from(numberOfRecords);
 
-console.log(numberOfRecords.length - 1);
+console.log(numberOfRecords.length);
 
 // 2. Set each dashboard image to different images, one for each season. Make sure you also set the alt="" attribute with an appropriate description.
 var dashboardImages = document.querySelectorAll('img');
-dashboardImages = Array.from(dashboardImages);
+// dashboardImages = Array.from(dashboardImages);
 
 dashboardImages[0].src = 'https://unsplash.it/200/200?image=423';
 dashboardImages[1].src = 'https://unsplash.it/200/200?image=33';
@@ -22,8 +22,8 @@ var quarterTotal = document.querySelectorAll('.text-muted');
 // quarterTotal = Array.from(quarterTotal);
 
 quarterTotal.forEach(function(randomNumber){
-    var money = (Math.ceil(Math.random(0) * 100000) + '.00');
-    randomNumber.innerHTML = ('$') + money;   
+    var money = Math.ceil(Math.random(0) * 100000);
+    randomNumber.innerHTML = ('$' + money + '.00');   
 });
 
 console.log(quarterTotal);
@@ -87,21 +87,40 @@ console.log(tableHeader)
 
 // 9. Make an array of objects, each object representing a single row in the table. Remove the commas from the ID column and convert it to an actual Number data type. Example: [{id: 1001, firstName: 'Lorem', lastName: 'ipsum', department: 'dolor', client: 'sit'}]
 
-// var arrayOfObjects = document.querySelectorAll('tr');
-// arrayOfObjects = Array.from(arrayOfObjects);
-// document.querySelector('th')
+var arrayOfObjects =  [];
+var rows = document.querySelectorAll('tbody tr')
+
+rows.forEach(function(row) {
+    var object = {};
+    object.id = Number(row.children[0].innerText.replace(/,/g,''));
+    object.firstName = row.children[1].innerText;
+    object.lastName = row.children[2].innerText;
+    object.department = row.children[3].innerText;
+    object.client = row.children[4].innerText;
+
+    arrayOfObjects.push(object);
+})
+console.log(arrayOfObjects);
 
 
-// console.log(arrayOfObjects)
+// Alternative way
+// rows.forEach(function(row) {
+//     var object = {
+//     id: Number(row.children[0].innerText.replace(/,/g,'')),
+//     firstName: row.children[1].innerText,
+//     lastName: row.children[2].innerText,
+//     department: row.children[3].innerText,
+//     client: row.children[4].innerText,
+//     }
+// })
+
+
+
 
 // 10. Make each word in the table capitalized.
-var capitalizeWords = document.querySelectorAll('td');
-capitalizeWords.forEach(function(randomNumber){
-    var capitalizeWords = document.querySelectorAll('td').toUpperCase();
-});
+
+document.querySelector('.table').classList.add('text-capitalize')
+// Another way to do this. 
+// document.querySelector('.table').style.textTransform = 'capitalize';
 
 
-// capatilizeWords = Array.from(capatilizeWords);
-// var firstLetter = capatilizeWords.innerHTML.splice(0,1);
-
-console.log(capitalizeWords)
